@@ -11,7 +11,7 @@ public class MyArrayList<E> {
 	/**
 	 * The array elements
 	 */
-	private E elements[];
+	private E elements [];
 	
 	/**
 	 * The number of elements currently contained in the list.
@@ -21,14 +21,14 @@ public class MyArrayList<E> {
 	/**
 	 * Creates a new list.
 	 */
-	public MyArrayList() {
+	public MyArrayList () {
 		clear();
 	}
 	
 	/**
 	 * Clears the contents of the array.
 	 */
-	public void clear() {
+	public void clear () {
 		elements = newArrayOfE(4);
 		currentSize = 0;
 	}
@@ -37,7 +37,7 @@ public class MyArrayList<E> {
 	 * Returns the current size of the list.
 	 * @return
 	 */
-	public int size() {
+	public int size () {
 		return currentSize;
 	}
 	
@@ -46,8 +46,8 @@ public class MyArrayList<E> {
 	 * @param index
 	 * @return
 	 */
-	public E get(int index) {
-        return null;    // replace this line with the correct code.
+	public E get (int index) {
+        return elements[index];
 	}
 	
 	/**
@@ -59,7 +59,15 @@ public class MyArrayList<E> {
 	 * 
 	 * @param elem
 	 */
-	public void add(E elem) {
+	public void add (E elem) {
+        if (this.size() != this.elements.length) {
+            this.elements[this.size()] = elem;
+            this.currentSize++;
+        } else {
+            this.expandSize(this.elements.length);
+            this.elements[this.size()] = elem;
+            this.currentSize++;
+        }
 	}
 
 	/**
@@ -73,7 +81,21 @@ public class MyArrayList<E> {
 	 * 
 	 * @param elem
 	 */
-	public void add(int index, E elem) {
+	public void add (int index, E elem) {
+        if (this.size() < this.elements.length) {
+            for (int i = this.size(); i >= index; i--) {
+                this.elements[i] = this.elements[i - 1];
+            }
+            this.elements[index] = elem;
+        } else {
+            this.expandSize(this.elements.length);
+
+            for (int i = this.size(); i >= index; i--) {
+                this.elements[i + 1] = this.elements[i];
+            }
+            this.elements[index] = elem;
+        }
+        this.currentSize++;
 	}
 	
 	/**
@@ -84,7 +106,14 @@ public class MyArrayList<E> {
 	 * This will be useful for both versions of add().
      * Hint: use newArrayOfE!
 	 */
-	private void expandSize() {
+	private void expandSize (int currentLength) {
+        E [] newElements = this.newArrayOfE(currentLength * 2);
+
+        for (int i = 0; i < currentLength; i++) {
+            newElements[i] = elements[i];
+        }
+
+        this.elements = newElements;
 	}
 	
 	/**
@@ -95,7 +124,7 @@ public class MyArrayList<E> {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	private E[] newArrayOfE(int capacity) {
-		return (E[]) (E[])new Object[capacity];
+	private E [] newArrayOfE (int capacity) {
+		return (E [] )new Object[capacity];
 	}
 }
