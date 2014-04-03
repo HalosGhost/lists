@@ -29,7 +29,11 @@ public class MyLinkedList<E> {
      * @return
      */
 	public E get(int index) {
-
+        MyLinkedNode <E> currentNode = this.getHead();
+        for (int i = 0; i < (index + 1); i++) {
+            currentNode = currentNode.getNext();
+        }
+        return currentNode.getValue();
 	}
 
     /**
@@ -39,7 +43,7 @@ public class MyLinkedList<E> {
      */
 	public void add(E elem) {
         MyLinkedNode <E> oldNode = this.getTail().getPrev();
-        MyLinkedNode <E> newNode = MyLinkedNode <E> (elem);
+        MyLinkedNode <E> newNode = new MyLinkedNode <E> (elem);
         oldNode.setNext(newNode);
         newNode.setPrev(oldNode);
         newNode.setNext(this.getTail());
@@ -53,6 +57,19 @@ public class MyLinkedList<E> {
      * @param elem
      */
 	public void add(int i, E elem) {
+        MyLinkedNode <E> currentNode = this.getHead();
+        MyLinkedNode <E> newNode = new MyLinkedNode <E> (elem);
+
+        for (int n = 0; n < (i + 1); n++) {
+            currentNode.getNext();
+        }
+
+        MyLinkedNode <E> prevNode = currentNode.getPrev();
+        prevNode.setNext(newNode);
+        newNode.setPrev(prevNode);
+        newNode.setNext(currentNode);
+        currentNode.setPrev(newNode);
+        this.numElements++;
 	}
 
     /**
