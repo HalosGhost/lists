@@ -29,7 +29,7 @@ public class MyLinkedList<E> {
      * @return
      */
 	public E get(int index) {
-		return null;
+
 	}
 
     /**
@@ -38,6 +38,13 @@ public class MyLinkedList<E> {
      * @param elem
      */
 	public void add(E elem) {
+        MyLinkedNode <E> oldNode = this.getTail().getPrev();
+        MyLinkedNode <E> newNode = MyLinkedNode <E> (elem);
+        oldNode.setNext(newNode);
+        newNode.setPrev(oldNode);
+        newNode.setNext(this.getTail());
+        this.getTail().setPrev(newNode);
+        this.numElements++;
 	}
 
     /**
